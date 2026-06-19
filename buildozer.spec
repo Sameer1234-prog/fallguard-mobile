@@ -8,7 +8,7 @@ source.include_patterns = assets/*,assets/fonts/*,assets/icons/*
 version         = 1.0
 
 # Dependencies
-requirements    = python3,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna,pyjnius
+requirements    = python3==3.10,kivy==2.1.0,requests,plyer,urllib3,certifi,charset-normalizer,idna,pyjnius
 
 # Orientation and display
 orientation     = portrait
@@ -20,7 +20,7 @@ android.meta_data = android.max_aspect=2.1
 
 # Android settings
 android.permissions = INTERNET,VIBRATE,RECEIVE_BOOT_COMPLETED,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,SEND_SMS
-android.api         = 33
+android.api         = 31
 android.accept_sdk_license = True
 android.minapi      = 21
 android.ndk         = 25b
