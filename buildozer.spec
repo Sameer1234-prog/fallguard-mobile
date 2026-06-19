@@ -7,8 +7,12 @@ source.include_exts = py,png,jpg,kv,atlas,ttf,otf
 source.include_patterns = assets/*,assets/fonts/*,assets/icons/*
 version         = 1.0
 
-# Dependencies
-requirements    = python3==3.10,kivy==2.1.0,requests,plyer,urllib3,certifi,charset-normalizer,idna,pyjnius
+# Dependencies - Using Kivy 2.3.0 compatible with p4a
+requirements    = python3==3.10.*,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
+
+# Pin python-for-android version to stable 2024.1.21
+p4a.version     = 2024.1.21
+p4a.branch      = stable
 
 # Orientation and display
 orientation     = portrait
@@ -20,7 +24,7 @@ android.meta_data = android.max_aspect=2.1
 
 # Android settings
 android.permissions = INTERNET,VIBRATE,RECEIVE_BOOT_COMPLETED,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,SEND_SMS
-android.api         = 31
+android.api         = 33
 android.accept_sdk_license = True
 android.minapi      = 21
 android.ndk         = 25b

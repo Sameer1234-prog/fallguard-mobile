@@ -9,59 +9,43 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Python
+    - name: Set up Python 3.10
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
     - name: Install system dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          build-essential \
-          git \
-          zip \
-          unzip \
-          openjdk-17-jdk \
-          autoconf \
-          libtool \
-          pkg-config \
-          zlib1g-dev \
-          libncurses5-dev \
-          libncursesw5-dev \
-          libtinfo5 \
-          cmake \
-          libffi-dev \
-          libssl-dev \
-          automake \
-          ccache
+        sudo apt update
+        sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
 
-    - name: Install Cython and Buildozer
+    - name: Install Buildozer
       run: |
         pip install --upgrade pip
-        pip install --upgrade cython==0.29.36
-        pip install --upgrade buildozer
+        pip install buildozer==1.5.0 cython==0.29.36
 
-    - name: Build APK with Buildozer
+    - name: Accept Android SDK licenses
       run: |
-        # Accept licenses by piping 'y' responses
         yes | buildozer android debug || true
-        # If first attempt fails, try again (buildozer sometimes needs 2 runs)
+
+    - name: Build with Buildozer
+      id: buildozer
+      run: |
         buildozer android debug
-      env:
-        ANDROID_HOME: ${{ github.workspace }}/.buildozer/android/platform/android-sdk
+        APK_PATH=$(find . -name "*.apk" | head -n 1)
+        echo "filename=$APK_PATH" >> $GITHUB_OUTPUT
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: fallguard-apk
-        path: bin/*.apk
+        path: ${{ steps.buildozer.outputs.filename }}
         retention-days: 30
         if-no-files-found: error
 
@@ -69,6 +53,6 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
-        files: bin/*.apk
+        files: ${{ steps.buildozer.outputs.filename }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
