@@ -50,12 +50,11 @@ jobs:
 
     - name: Build APK with Buildozer
       run: |
-        # Accept all Android licenses automatically
-        export BUILDOZER_WARN_ON_ROOT=0
-        # Create script to auto-accept licenses
+        # Accept licenses by piping 'y' responses
+        yes | buildozer android debug || true
+        # If first attempt fails, try again (buildozer sometimes needs 2 runs)
         buildozer android debug
       env:
-        CI: "true"
         ANDROID_HOME: ${{ github.workspace }}/.buildozer/android/platform/android-sdk
 
     - name: Upload APK artifact
