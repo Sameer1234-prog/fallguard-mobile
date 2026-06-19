@@ -48,20 +48,14 @@ jobs:
         pip install --upgrade cython==0.29.36
         pip install --upgrade buildozer
 
-    - name: Setup Android SDK
-      run: |
-        # Accept all licenses automatically
-        mkdir -p ~/.android
-        echo "count=0" > ~/.android/repositories.cfg
-        yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses || true
-        yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.0" "platforms;android-31" || true
-
     - name: Build APK with Buildozer
       run: |
-        # Set buildozer to accept licenses
+        # Accept all Android licenses automatically
         export BUILDOZER_WARN_ON_ROOT=0
+        # Create script to auto-accept licenses
         buildozer android debug
       env:
+        CI: "true"
         ANDROID_HOME: ${{ github.workspace }}/.buildozer/android/platform/android-sdk
 
     - name: Upload APK artifact

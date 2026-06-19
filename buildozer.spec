@@ -21,6 +21,7 @@ android.meta_data = android.max_aspect=2.1
 # Android settings
 android.permissions = INTERNET,VIBRATE,RECEIVE_BOOT_COMPLETED,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,SEND_SMS
 android.api         = 33
+android.accept_sdk_license = True
 android.minapi      = 21
 android.ndk         = 25b
 android.ndk_api     = 21
