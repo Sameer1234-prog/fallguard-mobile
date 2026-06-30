@@ -140,13 +140,21 @@ class SettingsScreen(Screen):
         layout.add_widget(self.contact_input)
         layout.add_widget(lbl('Format: +92xxxxxxxxxx', size=11, color=C_GREY, halign='left'))
 
-        # Server URL (Read-only display)
+        # Server URL (Editable)
         layout.add_widget(lbl('Server URL', size=14, color=C_GREY, halign='left'))
-        self.url_display = lbl(App.get_running_app().base_url if App.get_running_app() else '',
-                               size=12, color=C_BLUE, halign='left')
-        layout.add_widget(self.url_display)
+        self.url_input = TextInput(
+            text=App.get_running_app().base_url if App.get_running_app() else '',
+            font_size=dp(14), multiline=False,
+            size_hint_y=None, height=dp(48),
+            background_color=C_DARK_CARD, foreground_color=C_WHITE,
+            cursor_color=C_BLUE, 
+            hint_text='https://your-app.up.railway.app'
+        )
+        layout.add_widget(self.url_input)
+        layout.add_widget(lbl('Railway or custom server URL', size=11, color=C_GREY, halign='left'))
 
         layout.add_widget(btn('Save Settings', bg_color=C_BLUE, on_press=self.save_settings))
+        layout.add_widget(btn('Test Connection', bg_color=C_ORANGE, on_press=self.test_connection))
         layout.add_widget(btn('Test SMS', bg_color=C_ORANGE, on_press=self.test_sms))
 
         self.status_lbl = lbl('', size=13, color=C_GREY)
@@ -160,8 +168,29 @@ class SettingsScreen(Screen):
     def save_settings(self, *_):
         app = App.get_running_app()
         app.emergency_contact = self.contact_input.text.strip()
+        app.base_url = self.url_input.text.strip()
         self.status_lbl.text  = 'Settings saved!'
         self.status_lbl.color = C_GREEN
+
+    def test_connection(self, *_):
+        url = self.url_input.text.strip()
+        if not url:
+            self.status_lbl.text  = 'Enter server URL first'
+            self.status_lbl.color = C_RED
+            return
+        
+        def _test():
+            try:
+                r = requests.get(f"{url}/ping", timeout=5)
+                d = r.json()
+                Clock.schedule_once(lambda dt: self._set_status(
+                    f"Connected! Model: {d.get('model','?')} ({d.get('accuracy',0)*100:.1f}%)", C_GREEN))
+            except Exception as e:
+                Clock.schedule_once(lambda dt: self._set_status(f"Connection failed: {str(e)[:30]}", C_RED))
+        
+        threading.Thread(target=_test, daemon=True).start()
+        self.status_lbl.text  = 'Testing connection...'
+        self.status_lbl.color = C_ORANGE
 
     def test_sms(self, *_):
         contact = self.contact_input.text.strip()
@@ -173,9 +202,9 @@ class SettingsScreen(Screen):
         def _send():
             success = send_sms_android(contact, "Test message from Fall Guard app. SMS is working!")
             if success:
-                Clock.schedule_once(lambda dt: self._set_status('Test SMS sent!', C_GREEN))
+                Clock.schedule_once(lambda dt: self._set_status('Test SMS sent successfully!', C_GREEN))
             else:
-                Clock.schedule_once(lambda dt: self._set_status('SMS failed!', C_RED))
+                Clock.schedule_once(lambda dt: self._set_status('SMS send failed!', C_RED))
         
         threading.Thread(target=_send, daemon=True).start()
         self.status_lbl.text  = 'Sending test SMS...'
