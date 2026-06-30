@@ -18,11 +18,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     
-    - name: Set up Python 3.10
+    - name: Set up Python 3.9
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10.15'  # Pin exact version to ensure hostpython matches target
-        check-latest: false
+        python-version: '3.9'  # Use Python 3.9 for better p4a compatibility
     
     - name: Install dependencies
       run: |
@@ -49,15 +48,10 @@ jobs:
         export ANDROID_HOME=$HOME/android-sdk
         export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
         
-        # Use system Python 3.10.15 as hostpython instead of downloading
-        export PYTHON_ROOT=/opt/hostedtoolcache/Python/3.10.15/x64
-        export PATH="$PYTHON_ROOT/bin:$PATH"
+        # Verify Python version
+        echo "Python version: $(python --version)"
         
-        # Force Python 3.10 for both host and target
-        echo "Python location: $(which python3)"
-        echo "Python version: $(python3 --version)"
-        
-        # Build with verbose output
+        # Build APK
         buildozer -v android debug
       env:
         BUILDOZER_WARN_ON_ROOT: 0

@@ -7,8 +7,8 @@ source.include_exts = py,png,jpg,kv,atlas,ttf,otf
 source.include_patterns = assets/*,assets/fonts/*,assets/icons/*
 version         = 1.0
 
-# Dependencies - Force Python 3.10 to match hostpython
-requirements    = python3==3.10,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
+# Dependencies - Use python3 without version pin to let p4a match versions automatically
+requirements    = python3,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
 
 # Pin python-for-android version to latest stable
 p4a.branch      = master
