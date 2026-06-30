@@ -28,15 +28,19 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-
           sudo apt-get install -y \
             git \
             zip \
             unzip \
-            openjdk-17-jdk \
             autoconf \
             automake \
             libtool \
@@ -60,24 +64,19 @@ jobs:
 
       - name: Install Android SDK
         run: |
-
-          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
-
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-6514223_latest.zip
           mkdir -p $HOME/android-sdk/cmdline-tools
-
-          unzip -q commandlinetools-linux-11076708_latest.zip \
+          unzip -q commandlinetools-linux-6514223_latest.zip \
             -d $HOME/android-sdk/cmdline-tools
-
           mv \
-            $HOME/android-sdk/cmdline-tools/cmdline-tools \
+            $HOME/android-sdk/cmdline-tools/tools \
             $HOME/android-sdk/cmdline-tools/latest
-
+          
           export ANDROID_HOME=$HOME/android-sdk
-
           export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
-
+          export JAVA_HOME=$JAVA_HOME_17_X64
+          
           yes | sdkmanager --licenses
-
           sdkmanager \
             "platform-tools" \
             "platforms;android-34" \
@@ -94,17 +93,15 @@ jobs:
         env:
           BUILDOZER_WARN_ON_ROOT: 0
           ANDROID_HOME: ${{ github.workspace }}/../android-sdk
-
+          JAVA_HOME: ${{ env.JAVA_HOME_17_X64 }}
         run: |
-
           export ANDROID_HOME=$HOME/android-sdk
-
           export ANDROID_SDK_ROOT=$ANDROID_HOME
-
           export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-          python --version
-
+          
+          echo "Python version: $(python --version)"
+          echo "Java version: $(java -version)"
+          
           buildozer android debug
 
       - name: Upload APK
