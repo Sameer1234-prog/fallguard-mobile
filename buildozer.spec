@@ -21,8 +21,8 @@ source.include_patterns = assets/*,assets/fonts/*,assets/icons/*
 # (str) Application version
 version = 1.0
 
-# Application requirements
-requirements = python3,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
+# Application requirements - Use Kivy 2.3.1 with Python 3.11
+requirements = python3==3.11,kivy==2.3.1,requests,plyer,urllib3,certifi,charset-normalizer,idna
 
 # Orientation
 orientation = portrait
