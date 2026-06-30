@@ -19,6 +19,7 @@ jobs:
         run: |
           docker run --rm \
             -v "$PWD":/home/user/hostcwd \
+            -e ANDROID_ACCEPT_SDK_LICENSE=y \
             kivy/buildozer:latest \
             android debug
 

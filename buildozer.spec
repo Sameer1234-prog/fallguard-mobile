@@ -33,10 +33,11 @@ fullscreen = 1
 android.permissions = INTERNET,VIBRATE,RECEIVE_BOOT_COMPLETED,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,SEND_SMS
 
 # Android SDK versions
-android.api = 34
+android.api = 33
 android.minapi = 21
 android.ndk = 25b
 android.ndk_api = 21
+android.accept_sdk_license = True
 
 # Build architecture
 android.archs = arm64-v8a
