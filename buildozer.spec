@@ -7,8 +7,8 @@ source.include_exts = py,png,jpg,kv,atlas,ttf,otf
 source.include_patterns = assets/*,assets/fonts/*,assets/icons/*
 version         = 1.0
 
-# Dependencies - Using Kivy 2.3.0 compatible with p4a
-requirements    = python3,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
+# Dependencies - Kivy 2.3.0 requires Python 3.10 (not 3.14)
+requirements    = python3==3.10,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
 
 # Pin python-for-android version to latest stable
 p4a.branch      = master
