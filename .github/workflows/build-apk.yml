@@ -49,22 +49,15 @@ jobs:
         export ANDROID_HOME=$HOME/android-sdk
         export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
         
+        # Use system Python 3.10.15 as hostpython instead of downloading
+        export PYTHON_ROOT=/opt/hostedtoolcache/Python/3.10.15/x64
+        export PATH="$PYTHON_ROOT/bin:$PATH"
+        
         # Force Python 3.10 for both host and target
-        echo "Python location: $(which python)"
-        echo "Python version: $(python --version)"
-        echo "Python3 location: $(which python3)"
-        echo "Python3 version: $(python3 --version)"
+        echo "Python location: $(which python3)"
+        echo "Python version: $(python3 --version)"
         
-        # Remove any other Python from PATH to ensure only 3.10.15 is used
-        export PATH="/opt/hostedtoolcache/Python/3.10.15/x64/bin:$PATH"
-        
-        # Set environment variables to force hostpython3 = python3
-        export PYTHON_FOR_BUILD=$(which python3)
-        
-        # Verify it's the right version
-        python3 --version
-        
-        # Build with explicit Python
+        # Build with verbose output
         buildozer -v android debug
       env:
         BUILDOZER_WARN_ON_ROOT: 0

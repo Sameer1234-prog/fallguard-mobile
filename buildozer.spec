@@ -8,8 +8,7 @@ source.include_patterns = assets/*,assets/fonts/*,assets/icons/*
 version         = 1.0
 
 # Dependencies - Force Python 3.10 to match hostpython
-# Also explicitly specify hostpython3 version
-requirements    = python3==3.10,hostpython3==3.10,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
+requirements    = python3==3.10,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
 
 # Pin python-for-android version to latest stable
 p4a.branch      = master
