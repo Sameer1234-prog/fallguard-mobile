@@ -1,0 +1,111 @@
+========================================
+SIMPLE 3-STEP GUIDE
+========================================
+
+STEP 1: PUSH TO GITHUB
+----------------------------------------
+You are currently logged in as wrong account.
+
+EASIEST WAY:
+1. Download GitHub Desktop: https://desktop.github.com
+2. Login with: Sameer1234-prog
+3. Add this folder to GitHub Desktop
+4. Click "Push origin"
+
+OR USE COMMAND:
+1. Open PowerShell here
+2. Run: git credential-manager delete https://github.com
+3. Run: git push origin main
+4. Login when prompted with Sameer1234-prog account
+
+
+STEP 2: WAIT FOR BUILD (30-40 MINUTES)
+----------------------------------------
+1. Go to: https://github.com/Sameer1234-prog/fallguard-mobile/actions
+2. You'll see "Build Android APK" running
+3. Wait until it shows green checkmark ✅
+4. Build is automatic - GitHub does everything!
+
+
+STEP 3: DOWNLOAD APK
+----------------------------------------
+When build shows ✅ green:
+
+1. Click on the completed workflow
+2. Scroll to bottom → "Artifacts" section
+3. Click "fallguard-apk" to download
+4. Extract the ZIP file
+5. Copy APK to Android phone
+6. Install and use!
+
+
+========================================
+CURRENT STATUS
+========================================
+
+✅ App code ready with:
+   - SMS via SIM (not WhatsApp)
+   - Editable Railway URL in Settings
+   - GPS location in messages
+   - Visual feedback
+   - Test buttons
+
+✅ GitHub Actions configured
+✅ Build cache enabled (faster rebuilds)
+
+⏳ WAITING: Need to push to GitHub
+
+Repository: https://github.com/Sameer1234-prog/fallguard-mobile
+Actions: https://github.com/Sameer1234-prog/fallguard-mobile/actions
+
+
+========================================
+AFTER INSTALLING APK
+========================================
+
+1. Open app
+2. Allow all permissions (SMS, Location, Internet)
+3. Go to Settings
+4. Set emergency contact: +923001234567
+5. Set server URL: https://web-production-2755d.up.railway.app
+6. Click "Save Settings"
+7. Click "Test Connection" - should show Connected
+8. Click "Test SMS" - should send test message
+9. Return to Home - should show "Live"
+10. Ready!
+
+
+========================================
+QUICK TROUBLESHOOTING
+========================================
+
+Can't push?
+→ Use GitHub Desktop app (easiest)
+
+Build failed?
+→ Check Actions page for error logs
+
+Can't find APK?
+→ Wait for green ✅ then check Artifacts at bottom
+
+App won't install?
+→ Enable "Unknown sources" in Android settings
+
+
+========================================
+FILES READY IN THIS FOLDER
+========================================
+
+main.py - App code ✅
+buildozer.spec - Build config ✅
+.github/workflows/android-build.yml - Auto-build ✅
+
+Everything ready! Just need to push to GitHub.
+
+
+========================================
+NEED DETAILED HELP?
+========================================
+
+Read: GITHUB_PUSH_AND_DOWNLOAD.md
+(Complete guide with screenshots descriptions)

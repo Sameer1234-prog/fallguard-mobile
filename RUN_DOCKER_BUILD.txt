@@ -1,0 +1,140 @@
+============================================
+BUILD APK WITH DOCKER - STEP BY STEP
+============================================
+
+IMPORTANT: Close and reopen PowerShell/CMD after installing Docker!
+
+============================================
+STEP 1: START DOCKER DESKTOP
+============================================
+
+1. Open Docker Desktop application
+2. Wait for it to fully start
+3. Look for whale icon in system tray
+4. Should say "Docker Desktop is running"
+
+
+============================================
+STEP 2: OPEN NEW POWERSHELL
+============================================
+
+1. Close THIS PowerShell/CMD window
+2. Open NEW PowerShell window
+3. Navigate to mobile_app folder:
+
+   cd C:\Users\Sameer\Downloads\50hz\50hz\mobile_app
+
+4. Verify Docker works:
+
+   docker --version
+
+   Should show: Docker version 24.x.x
+
+
+============================================
+STEP 3: BUILD APK
+============================================
+
+Copy and paste this ONE command:
+
+docker run --rm -v "${PWD}:/home/user/hostcwd" kivy/buildozer bash -c "cd /home/user/hostcwd && buildozer android debug"
+
+
+What happens:
+- Downloads Kivy buildozer image (~2GB) - FIRST TIME ONLY
+- Builds APK inside Docker container
+- Takes 40-50 minutes first time
+- APK saved to bin/ folder
+
+
+============================================
+STEP 4: COPY APK TO DESKTOP
+============================================
+
+After build completes, run:
+
+copy bin\*.apk $env:USERPROFILE\Desktop\FallGuard_SMS.apk
+
+
+============================================
+OR USE THE BATCH FILE
+============================================
+
+Just double-click:
+
+   build_docker_simple.bat
+
+It will do everything automatically!
+
+
+============================================
+TROUBLESHOOTING
+============================================
+
+If "docker" command not found:
+→ Close PowerShell and open NEW one
+→ Make sure Docker Desktop is running
+
+If "image not found":
+→ Check internet connection
+→ Docker will download image automatically
+
+If build fails:
+→ Check build output for specific error
+→ Make sure you have 10GB free space
+
+If "permission denied":
+→ Run PowerShell as Administrator
+
+
+============================================
+EXPECTED OUTPUT
+============================================
+
+You should see:
+
+1. "Pulling image..." (first time)
+2. "Downloading layers..." (first time)  
+3. "Checking requirements..."
+4. "Downloading Android SDK..."
+5. "Building APK..."
+6. "APK created: bin/fallguard-1.0-arm64-v8a-debug.apk"
+
+Then APK will be on your Desktop!
+
+
+============================================
+QUICK COMMAND SUMMARY
+============================================
+
+# Build APK
+docker run --rm -v "${PWD}:/home/user/hostcwd" kivy/buildozer bash -c "cd /home/user/hostcwd && buildozer android debug"
+
+# Copy to Desktop
+copy bin\*.apk $env:USERPROFILE\Desktop\FallGuard_SMS.apk
+
+# Check Docker
+docker --version
+
+# Check Docker is running
+docker ps
+
+
+============================================
+TIME ESTIMATE
+============================================
+
+First build:  40-50 minutes
+Next builds:  30 minutes (cached)
+
+
+============================================
+READY?
+============================================
+
+1. ✅ Docker Desktop running?
+2. ✅ New PowerShell opened?
+3. ✅ In mobile_app folder?
+4. ✅ Run docker command above!
+
+Your APK will be ready in ~40 minutes! 🚀

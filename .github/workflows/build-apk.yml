@@ -1,0 +1,55 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git zip unzip openjdk-17-jdk wget
+        pip install --upgrade pip
+        pip install buildozer==1.5.0 cython==0.29.36
+    
+    - name: Set up Android SDK
+      run: |
+        wget -q https://dl.google.com/android/repository/commandlinetools-linux-6514223_latest.zip
+        mkdir -p $HOME/android-sdk/cmdline-tools
+        unzip -q commandlinetools-linux-6514223_latest.zip -d $HOME/android-sdk/cmdline-tools
+        mv $HOME/android-sdk/cmdline-tools/tools $HOME/android-sdk/cmdline-tools/latest
+        
+        export ANDROID_HOME=$HOME/android-sdk
+        export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+        
+        yes | sdkmanager --licenses
+        sdkmanager "platform-tools" "platforms;android-27" "build-tools;27.0.3"
+    
+    - name: Build APK with Buildozer
+      run: |
+        export ANDROID_HOME=$HOME/android-sdk
+        export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+        buildozer android debug
+      env:
+        BUILDOZER_WARN_ON_ROOT: 0
+    
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: FallGuard-APK
+        path: bin/*.apk

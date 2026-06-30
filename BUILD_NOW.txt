@@ -1,0 +1,81 @@
+╔════════════════════════════════════════════════════════════════════╗
+║                    FALL GUARD - BUILD APK NOW                      ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  🎯 EASIEST WAY: Double-click this file:                          ║
+║     BUILD_WITH_DOCKER.bat                                          ║
+║                                                                    ║
+║  ⏱️  Build Time: 20-30 minutes                                     ║
+║  📦 Output: Desktop\FallGuard_SMS.apk                              ║
+║                                                                    ║
+╠════════════════════════════════════════════════════════════════════╣
+║  OR RUN IN POWERSHELL:                                             ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  1. Open PowerShell                                                ║
+║  2. Copy-paste this command:                                       ║
+║                                                                    ║
+║     cd C:\Users\Sameer\Downloads\50hz\50hz\mobile_app             ║
+║                                                                    ║
+║     docker run --rm -v "${PWD}:/home/user/hostcwd" `              ║
+║       --entrypoint="" kivy/buildozer bash -c `                    ║
+║       "cd /home/user/hostcwd && `                                 ║
+║       export BUILDOZER_WARN_ON_ROOT=0 && `                        ║
+║       buildozer android debug"                                    ║
+║                                                                    ║
+║  3. Press Enter and wait                                           ║
+║                                                                    ║
+╠════════════════════════════════════════════════════════════════════╣
+║  WHAT'S INCLUDED IN APP:                                           ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  ✅ SMS via SIM card (not WhatsApp)                               ║
+║  ✅ GPS location in messages                                      ║
+║  ✅ Editable server URL in Settings                               ║
+║  ✅ Test SMS button                                               ║
+║  ✅ Test Connection button                                        ║
+║  ✅ Live fall detection                                           ║
+║  ✅ Fall history                                                  ║
+║  ✅ Visual feedback                                               ║
+║                                                                    ║
+╠════════════════════════════════════════════════════════════════════╣
+║  AFTER BUILD - CONFIGURE APP:                                      ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  1. Install APK from Desktop\FallGuard_SMS.apk                    ║
+║  2. Open app → Go to Settings tab                                 ║
+║  3. Enter Emergency Contact: +923001234567                        ║
+║  4. Verify Server URL: https://web-production-2755d...            ║
+║  5. Click "Save Settings"                                          ║
+║  6. Click "Test SMS" (should receive message)                     ║
+║  7. Click "Test Connection" (should show Connected!)              ║
+║  8. Go to Home tab - should show "Live" status                    ║
+║                                                                    ║
+╠════════════════════════════════════════════════════════════════════╣
+║  SMS MESSAGE FORMAT:                                               ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  FALL DETECTED!                                                    ║
+║  Time: 2026-06-30 15:30:45                                        ║
+║  Prob: 85%                                                         ║
+║  Location: https://maps.google.com/?q=31.5204,74.3587            ║
+║                                                                    ║
+╠════════════════════════════════════════════════════════════════════╣
+║  FILES READY:                                                      ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  📄 main.py              - App code with SMS                      ║
+║  📄 buildozer.spec       - Build configuration                    ║
+║  📄 BUILD_WITH_DOCKER.bat - Easy build script                     ║
+║  📄 DOCKER_BUILD_FIXED.md - Detailed instructions                 ║
+║  📄 START_BUILD.md        - All build options                     ║
+║                                                                    ║
+╠════════════════════════════════════════════════════════════════════╣
+║  NEED HELP?                                                        ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                    ║
+║  Read: DOCKER_BUILD_FIXED.md (step-by-step guide)                ║
+║                                                                    ║
+╚════════════════════════════════════════════════════════════════════╝
+
+🚀 START BUILDING NOW - DOUBLE-CLICK: BUILD_WITH_DOCKER.bat

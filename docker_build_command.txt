@@ -1,0 +1,42 @@
+========================================
+FIXED DOCKER BUILD COMMAND
+========================================
+
+Copy and paste this ENTIRE command in PowerShell:
+
+docker run --rm -it -v "${PWD}:/home/user/hostcwd" -e USE_SDK_WRAPPER=1 -e GRADLE_OPTS=-Dorg.gradle.jvmargs=-Xmx2048m kivy/buildozer bash -c "export BUILDOZER_WARN_ON_ROOT=0 && cd /home/user/hostcwd && buildozer android debug"
+
+
+========================================
+WHAT THIS DOES:
+========================================
+
+-it                    = Interactive mode (allows buildozer to run)
+-v "${PWD}:..."        = Mount your folder in container
+-e BUILDOZER_WARN_ON_ROOT=0  = Skip root warning
+-e USE_SDK_WRAPPER=1   = Better Android SDK handling
+-e GRADLE_OPTS=...     = More memory for build
+
+========================================
+EXPECTED OUTPUT:
+========================================
+
+After running, you should see:
+✓ Checking requirements...
+✓ Installing Android SDK...
+✓ Installing Android NDK...
+✓ Building APK...
+
+Build time: 30-40 minutes
+
+========================================
+AFTER BUILD:
+========================================
+
+APK will be at:
+bin/fallguard-1.0-arm64-v8a-debug.apk
+
+Copy to Desktop:
+copy bin\*.apk $env:USERPROFILE\Desktop\FallGuard_SMS.apk
+
+========================================
