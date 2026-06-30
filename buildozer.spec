@@ -1,40 +1,59 @@
 [app]
-title           = Fall Guard
-package.name    = fallguard
-package.domain  = org.fallguard
-source.dir      = .
-source.include_exts = py,png,jpg,kv,atlas,ttf,otf
+
+# (str) Title of your application
+title = Fall Guard
+
+# (str) Package name
+package.name = fallguard
+
+# (str) Package domain
+package.domain = org.fallguard
+
+# (str) Source code where the main.py lives
+source.dir = .
+
+# (list) Source files to include
+source.include_exts = py,png,jpg,jpeg,kv,atlas,ttf,otf,json
+
+# Include assets
 source.include_patterns = assets/*,assets/fonts/*,assets/icons/*
-version         = 1.0
 
-# Dependencies - Use python3 without version pin to let p4a match versions automatically
-requirements    = python3,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
+# (str) Application version
+version = 1.0
 
-# Pin python-for-android version to latest stable
-p4a.branch      = master
+# Application requirements
+requirements = python3,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
 
-# Orientation and display
-orientation     = portrait
-fullscreen       = 1
+# Orientation
+orientation = portrait
+
+fullscreen = 1
+
+# Android permissions
+android.permissions = INTERNET,VIBRATE,RECEIVE_BOOT_COMPLETED,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,SEND_SMS
+
+# Android SDK versions
+android.api = 34
+android.minapi = 21
+android.ndk = 25b
+android.ndk_api = 21
+
+# Build architecture
+android.archs = arm64-v8a
+
+# APK instead of AAB
+android.release_artifact = apk
+
+# Misc
+android.allow_backup = True
 android.wakelock = False
 
-# Screen density support
-android.meta_data = android.max_aspect=2.1
-
-# Android settings
-android.permissions = INTERNET,VIBRATE,RECEIVE_BOOT_COMPLETED,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION,SEND_SMS
-android.api         = 27
-android.accept_sdk_license = True
-android.minapi      = 21
-android.ndk         = 25b
-android.ndk_api     = 21
-android.archs       = arm64-v8a
-
-# Build settings
-android.allow_backup = True
-android.release_artifact = apk
+# Logging
 log_level = 2
+
 warn_on_root = 0
 
+
 [buildozer]
+
 log_level = 2
