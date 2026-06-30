@@ -7,7 +7,7 @@ source.include_exts = py,png,jpg,kv,atlas,ttf,otf
 source.include_patterns = assets/*,assets/fonts/*,assets/icons/*
 version         = 1.0
 
-# Dependencies - Kivy 2.3.0 requires Python 3.10 (not 3.14)
+# Dependencies - Force Python 3.10 to match hostpython
 requirements    = python3==3.10,kivy==2.3.0,requests,plyer,urllib3,certifi,charset-normalizer,idna
 
 # Pin python-for-android version to latest stable
